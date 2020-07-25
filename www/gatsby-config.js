@@ -1,8 +1,8 @@
 require("dotenv").config();
 
 const siteMetadata = {
-  title: `Novela by Narative`,
-  name: `Narative`,
+  title: `Tej, Kultura!`,
+  name: `Tej, Kultura!`,
   siteUrl: `https://novela.narative.co`,
   description: `This is my description that will be used in the meta tags and important for search results`,
   hero: {
@@ -60,7 +60,7 @@ const plugins = [
       rootPath: "/",
       basePath: "/",
       authorsPage: false,
-      mailchimp: true,
+      mailchimp: false,
       sources: {
         local: true,
         contentful: false,

@@ -133,36 +133,6 @@ const listTile = p => css`
   `}
 `;
 
-const listItemRow = p => css`
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 488px;
-  grid-column-gap: 96px;
-  grid-template-rows: 1;
-  align-items: center;
-  position: relative;
-  margin-bottom: 50px;
-
-  ${mediaqueries.desktop`
-    grid-column-gap: 24px;
-    grid-template-columns: 1fr 380px;
-  `}
-
-  ${mediaqueries.tablet`
-    grid-template-columns: 1fr;
-  `}
-
-  @media (max-width: 540px) {
-    background: ${p.theme.colors.card};
-  }
-
-  ${mediaqueries.phablet`
-    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-  `}
-`;
-
 // If only 1 article, dont create 2 rows.
 const listRow = p => css`
   display: grid;

@@ -133,6 +133,8 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   ].sort(byDate);
 
   const articlesThatArentSecret = articles.filter(article => !article.secret);
+  const featuredArticle = articles.find(article => article.featured);
+  const articlesThatArentFeatured = articles.filter(article => !article.featured);
 
   // Combining together all the authors from different sources
   authors = getUniqueListBy(
@@ -162,7 +164,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
    */
   log('Creating', 'articles page');
   createPaginatedPages({
-    edges: articlesThatArentSecret,
+    edges: articlesThatArentFeatured,
     pathPrefix: basePath,
     createPage,
     pageLength,
@@ -173,6 +175,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
       basePath,
       skip: pageLength,
       limit: pageLength,
+      featuredArticle: featuredArticle
     },
   });
 
@@ -240,7 +243,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     log('Creating', 'authors page');
 
     authors.forEach(author => {
-      const articlesTheAuthorHasWritten = articlesThatArentSecret.filter(
+      const articlesTheAuthorHasWritten = articlesWithFeaturedOnTop.filter(
         article =>
           article.author.toLowerCase().includes(author.name.toLowerCase()),
       );

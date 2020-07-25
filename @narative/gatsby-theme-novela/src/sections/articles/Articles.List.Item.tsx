@@ -10,7 +10,7 @@ import Image, { ImagePlaceholder } from '@components/Image';
 import { GridLayoutContext } from './Articles.List.Context';
 
 
-const ArticlesListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) => {
+const ArticlesListItem: React.FC<ArticlesListItemProps> = ({ article, narrow, hero = false }) => {
   if (!article) return null;
 
   const { gridLayout } = useContext(GridLayoutContext);
@@ -20,11 +20,12 @@ const ArticlesListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) 
     imageSource &&
     Object.keys(imageSource).length !== 0 &&
     imageSource.constructor === Object;
+  const heroArticle = hero
 
   return (
     <ArticleLink to={article.slug} data-a11y="false">
-      <Item gridLayout={gridLayout}>
-        <ImageContainer narrow={narrow} gridLayout={gridLayout}>
+      <Item heroArticle={heroArticle} gridLayout={gridLayout}>
+        <ImageContainer heroArticle={heroArticle} narrow={narrow} gridLayout={gridLayout}>
           {hasHeroImage ? <Image src={imageSource} /> : <ImagePlaceholder />}
         </ImageContainer>
         <div>
@@ -33,6 +34,7 @@ const ArticlesListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) 
           </Title>
           <Excerpt
             narrow={narrow}
+            hero={hero}
             hasOverflow={hasOverflow}
             gridLayout={gridLayout}
           >
@@ -50,15 +52,15 @@ const ArticlesListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) 
 export default ArticlesListItem;
 
 const Item = styled.div<{ gridLayout: string }>`
-  ${p => (p.gridLayout === 'rows' ? listItemRow : listItemTile)}
+  ${p => p.heroArticle === true ? listItemRow : (p.gridLayout === 'rows' ? listItemRow : listItemTile)}
 `;
 
-const ImageContainer = styled.div<{ narrow: boolean; gridLayout: string }>`
+const ImageContainer = styled.div<{ heroArticle: boolean, narrow: boolean; gridLayout: string }>`
   position: relative;
-  height: ${p => (p.gridLayout === 'tiles' ? '280px' : '220px')};
+  height: ${p => p.heroArticle === true ? '320px' : (p.gridLayout === 'tiles' ? '280px' : '220px')};
   box-shadow: 0 30px 60px -10px rgba(0, 0, 0, ${p => (p.narrow ? 0.22 : 0.3)}),
     0 18px 36px -18px rgba(0, 0, 0, ${p => (p.narrow ? 0.25 : 0.33)});
-  margin-bottom: ${p => (p.gridLayout === 'tiles' ? '30px' : 0)};
+  margin-bottom: ${p => p.heroArticle === true ? 0 : (p.gridLayout === 'tiles' ? '30px' : 0)};
   transition: transform 0.3s var(--ease-out-quad),
     box-shadow 0.3s var(--ease-out-quad);
 
@@ -221,5 +223,36 @@ const ArticleLink = styled(Link)`
     &:active {
       transform: scale(0.97) translateY(3px);
     }
+  `}
+`;
+
+const listItemRow = p => css`
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 2fr;
+  grid-column-gap: 96px;
+  grid-template-rows: 1;
+  align-items: center;
+  position: relative;
+  margin-bottom: 50px;
+  background: ${p.heroArticle === false ? null : 'rgba(255, 255, 255, 0.01)'};
+
+  ${mediaqueries.desktop`
+    grid-column-gap: 24px;
+    grid-template-columns: 1fr 380px;
+  `}
+
+  ${mediaqueries.tablet`
+    grid-template-columns: 1fr;
+  `}
+
+  @media (max-width: 540px) {
+    background: ${p.theme.colors.card};
+  }
+
+  ${mediaqueries.phablet`
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
   `}
 `;

@@ -58,8 +58,8 @@ const ArticlesHero: React.FC<IAuthor> = ({ authors, article }) => {
 
   return (
     <Section relative id="Articles__Hero">
-      <HeadingContainer style={{ maxWidth: `${hero.maxWidth}px` }}>
-        <ArticlesListItem article={article} narrow={false} />
+      <HeadingContainer>
+        <ArticlesListItem article={article} narrow={false} hero={true} />
       </HeadingContainer>
       <SubheadingContainer>
         <Bio author={featuredAuthor} />
@@ -94,14 +94,14 @@ const SubheadingContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 
   ${mediaqueries.desktop`
-    margin-bottom: 80px;
+    margin-bottom: 60px;
   `};
 
   ${mediaqueries.tablet`
-    margin-bottom: 60px;
+    margin-bottom: 40px;
   `};
 
   ${mediaqueries.phablet`
@@ -119,7 +119,7 @@ const GridControlsContainer = styled.div`
 `;
 
 const HeadingContainer = styled.div`
-  margin: 100px 0;
+  margin: 50px 0;
 
   ${mediaqueries.desktop`
     width: 80%;
