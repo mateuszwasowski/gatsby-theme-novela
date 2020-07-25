@@ -23,6 +23,7 @@ module.exports.local = {
           id
           slug
           secret
+          featured
           title
           author
           date(formatString: "MMMM Do, YYYY")
@@ -109,6 +110,7 @@ module.exports.contentful = {
           title
           slug
           secret
+          featured
           date(formatString: "MMMM Do, YYYY")
           dateForSEO: date
           hero {

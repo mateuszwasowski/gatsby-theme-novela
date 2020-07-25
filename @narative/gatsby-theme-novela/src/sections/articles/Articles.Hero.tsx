@@ -59,7 +59,7 @@ const ArticlesHero: React.FC<IAuthor> = ({ authors, article }) => {
   return (
     <Section relative id="Articles__Hero">
       <HeadingContainer style={{ maxWidth: `${hero.maxWidth}px` }}>
-        <ArticlesListItem article={featuredArticle} narrow={false} />
+        <ArticlesListItem article={article} narrow={false} />
       </HeadingContainer>
       <SubheadingContainer>
         <Bio author={featuredAuthor} />

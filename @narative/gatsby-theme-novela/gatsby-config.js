@@ -115,6 +115,7 @@ module.exports = ({
                       title
                       author
                       secret
+                      featured
                     }
                   }
                 }
@@ -139,6 +140,7 @@ module.exports = ({
                         name
                       }
                       secret
+                      featured
                     }
                   }
                 }
@@ -156,6 +158,7 @@ module.exports = ({
                       title
                       author
                       secret
+                      featured
                     }
                   }
                 }
@@ -175,6 +178,7 @@ module.exports = ({
                         name
                       }
                       secret
+                      featured
                     }
                   }
                 }

@@ -88,6 +88,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
       date: node.frontmatter.date,
       hero: node.frontmatter.hero,
       secret: node.frontmatter.secret || false,
+      featured: node.frontmatter.featured || false,
       slug: generateSlug(
         basePath,
         generateArticlePermalink(
