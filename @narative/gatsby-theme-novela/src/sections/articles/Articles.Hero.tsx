@@ -10,6 +10,8 @@ import { IAuthor } from '@types';
 
 import { GridLayoutContext } from './Articles.List.Context';
 
+import ArticlesListItem from './Articles.List.Item';
+
 const authorQuery = graphql`
   {
     site: allSite {
@@ -27,7 +29,7 @@ const authorQuery = graphql`
   }
 `;
 
-const ArticlesHero: React.FC<IAuthor> = ({ authors }) => {
+const ArticlesHero: React.FC<IAuthor> = ({ authors, article }) => {
   const { gridLayout = 'tiles', hasSetGridLayout, setGridLayout } = useContext(
     GridLayoutContext,
   );
@@ -44,10 +46,20 @@ const ArticlesHero: React.FC<IAuthor> = ({ authors }) => {
   `);
   }
 
+  if (!article) {
+    throw new Error(`
+      No featured Article found.
+      Please ensure you have at least featured Article.
+  `);
+  }
+
+  const narrow = false;
+  const hasHeroImage = true;
+
   return (
     <Section relative id="Articles__Hero">
       <HeadingContainer style={{ maxWidth: `${hero.maxWidth}px` }}>
-        <HeroHeading dangerouslySetInnerHTML={{ __html: hero.heading }} />
+        <ArticlesListItem article={featuredArticle} narrow={false} />
       </HeadingContainer>
       <SubheadingContainer>
         <Bio author={featuredAuthor} />

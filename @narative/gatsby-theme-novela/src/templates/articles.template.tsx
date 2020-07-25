@@ -14,11 +14,13 @@ import { Template } from "@types";
 const ArticlesPage: Template = ({ location, pageContext }) => {
   const articles = pageContext.group;
   const authors = pageContext.additionalContext.authors;
+  const featuredArticle = articles.find(article => article.featured);
+  console.log(articles);
 
   return (
     <Layout>
       <SEO pathname={location.pathname} />
-      <ArticlesHero authors={authors} />
+      <ArticlesHero authors={authors} article={featuredArticle} />
       <Section narrow>
         <ArticlesList articles={articles} />
         <ArticlesPaginator show={pageContext.pageCount > 1}>
