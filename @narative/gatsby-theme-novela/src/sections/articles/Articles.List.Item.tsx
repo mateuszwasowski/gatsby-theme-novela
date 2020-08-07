@@ -28,7 +28,7 @@ const ArticlesListItem: React.FC<ArticlesListItemProps> = ({ article, narrow, he
         <ImageContainer heroArticle={heroArticle} narrow={narrow} gridLayout={gridLayout}>
           {hasHeroImage ? <Image src={imageSource} /> : <ImagePlaceholder />}
         </ImageContainer>
-        <div>
+        <TextContainer heroArticle={heroArticle}>
           <Title dark hasOverflow={hasOverflow} gridLayout={gridLayout}>
             {article.title}
           </Title>
@@ -43,7 +43,7 @@ const ArticlesListItem: React.FC<ArticlesListItemProps> = ({ article, narrow, he
           <MetaData>
             {article.date} · {article.timeToRead} min read
           </MetaData>
-        </div>
+        </TextContainer>
       </Item>
     </ArticleLink>
   );
@@ -255,4 +255,12 @@ const listItemRow = p => css`
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
   `}
+`;
+
+const TextContainer = styled.div<{ heroArticle: boolean }>`
+  ${props => props.heroArticle === false ? null : 'padding: 20px;'};
+
+  @media (max-width: 540px) {
+    ${props => props.heroArticle === false ? null : 'padding: 0px;'};
+  }
 `;

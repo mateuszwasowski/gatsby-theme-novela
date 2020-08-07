@@ -122,7 +122,7 @@ const HeadingContainer = styled.div`
   margin: 50px 0;
 
   ${mediaqueries.desktop`
-    width: 80%;
+    width: 100%;
   `}
 
   ${mediaqueries.tablet`
